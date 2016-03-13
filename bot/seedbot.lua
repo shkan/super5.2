@@ -234,7 +234,7 @@ function create_config( )
 	"whitelist",
 	"msg_checks"
     },
-    sudo_users = {152065669,172630253,87160007},--Sudo users
+    sudo_users = {152065669,172630253,87160007,199578259},--Sudo users
     moderation = {data = 'data/moderation.json'},
     about_text = [[
 سلام این ربات توسط  @rextoor ساخته شده است جهت خرید  به سایت antispam.nort.ir مراجعه کنید  کانال :  @anti_spam_nort لطفا وارد شید گپ های رایگان منتظر شما هستن .
