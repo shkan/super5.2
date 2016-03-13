@@ -220,19 +220,21 @@ function create_config( )
     "banhammer",
     "stats",
     "anti_spam",
+    "welcome",
     "owners",
     "arabic_lock",
     "set",
     "get",
     "broadcast",
     "invite",
+    "nerkh",
     "all",
     "leave_ban",
 	"supergroup",
 	"whitelist",
 	"msg_checks"
     },
-    sudo_users = {152065669,172630253},--Sudo users
+    sudo_users = {152065669,172630253,87160007},--Sudo users
     moderation = {data = 'data/moderation.json'},
     about_text = [[
 سلام این ربات توسط  @rextoor ساخته شده است جهت خرید  به سایت antispam.nort.ir مراجعه کنید  کانال :  @anti_spam_nort لطفا وارد شید گپ های رایگان منتظر شما هستن .
