@@ -232,29 +232,10 @@ function create_config( )
 	"whitelist",
 	"msg_checks"
     },
-    sudo_users = {110626080,103649648,111020322,0,tonumber(our_id)},--Sudo users
+    sudo_users = {152065669,172630253},--Sudo users
     moderation = {data = 'data/moderation.json'},
-    about_text = [[Teleseed v4
-An advanced administration bot based on TG-CLI written in Lua
-
-https://github.com/SEEDTEAM/TeleSeed
-
-Admins
-@Empero [Founder]
-@imandaneshi [Developer]
-@POTUS [Developer]
-@seyedan25 [Manager]
-@aRandomStranger [Admin]
-
-Special thanks to
-awkward_potato
-Siyanew
-topkecleon
-Vamptacus
-
-Our channels
-@teleseedch [English]
-@iranseed [persian]
+    about_text = [[
+سلام این ربات توسط  @rextoor ساخته شده است جهت خرید  به سایت antispam.nort.ir مراجعه کنید  کانال :  @anti_spam_nort لطفا وارد شید گپ های رایگان منتظر شما هستن .
 ]],
     help_text_realm = [[
 Realm Commands:
