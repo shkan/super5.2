@@ -738,7 +738,6 @@ function run(msg, matches)
         return create_group(msg)
     end
 
-	--[[ Experimental
 	if matches[1] == 'createsuper' and matches[2] then
 	if not is_sudo(msg) or is_admin1(msg) and is_realm(msg) then
 		return "You cant create groups!"
@@ -746,7 +745,7 @@ function run(msg, matches)
         group_name = matches[2]
         group_type = 'super_group'
         return create_group(msg)
-    end]]
+    end
 
     if matches[1] == 'createrealm' and matches[2] then
 	if not is_sudo(msg) or not is_admin1(msg) and is_realm(msg) then
@@ -879,7 +878,7 @@ function run(msg, matches)
       		savelog(msg.to.id, name_log.." ["..msg.from.id.."] Used /help")
      		return help()
     	end
-		--[[if matches[1] == 'set' then
+		if matches[1] == 'set' then
 			if matches[2] == 'loggroup' and is_sudo(msg) then
 				local target = msg.to.peer_id
                 savelog(msg.to.peer_id, name_log.." ["..msg.from.id.."] set as log group")
@@ -892,7 +891,7 @@ function run(msg, matches)
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] set as log group")
 				return unset_log_group(target, data)
 			end
-		end]]
+		end
 		if matches[1] == 'kill' and matches[2] == 'chat' and matches[3] then
 			if not is_admin1(msg) then
 				return
@@ -943,10 +942,7 @@ function run(msg, matches)
 				  chat_del_user(chat, user, ok_cb, true)
 			end
 		end
-		if matches[1] == 'addadmin' then
-		    if not is_sudo(msg) then-- Sudo only
-				return
-			end
+		if matches[1] == 'addadmin' and is_sudo(msg) then
 			if string.match(matches[2], '^%d+$') then
 				local admin_id = matches[2]
 				print("user "..admin_id.." has been promoted as admin")
@@ -957,10 +953,7 @@ function run(msg, matches)
 				chat_info(receiver, username_id, {mod_cmd= mod_cmd, receiver=receiver, member=member})
 			end
 		end
-		if matches[1] == 'removeadmin' then
-		    if not is_sudo(msg) then-- Sudo only
-				return
-			end
+		if matches[1] == 'removeadmin' and is_sudo(msg) then
 			if string.match(matches[2], '^%d+$') then
 				local admin_id = matches[2]
 				print("user "..admin_id.." has been demoted")
@@ -1001,29 +994,29 @@ function run(msg, matches)
              local group_type = get_group_type(msg)
 			return group_type
 		end
-		if matches[1] == 'list' then
-			if matches[2] == 'admins' then
+		if matches[1] == 'list' and is_sudo(msg) then
+			if matches[2] == 'admins' and is_sudo(msg) then
 				return admin_list(msg)
 			end
-		--	if matches[2] == 'support' and not matches[2] then
-			--	return support_list()
-		--	end
+		if matches[2] == 'support' and not matches[2] then
+				return support_list()
+			end
 		end
 		
-		if matches[1] == 'list' and matches[2] == 'groups' then
-			if msg.to.type == 'chat' or msg.to.type == 'channel' then
+		if matches[1] == 'list' and matches[2] == 'groups' and is_sudo(msg) then
+			if msg.to.type == 'chat' or msg.to.type == 'channel' and is_sudo(msg) then
 				groups_list(msg)
 				send_document("chat#id"..msg.to.id, "./groups/lists/groups.txt", ok_cb, false)
 				send_document("channel#id"..msg.to.id, "./groups/lists/groups.txt", ok_cb, false)
 				return "Group list created" --group_list(msg)
-			elseif msg.to.type == 'user' then
+			elseif msg.to.type == 'user' and is_sudo(msg) then
 				groups_list(msg)
 				send_document("user#id"..msg.from.id, "./groups/lists/groups.txt", ok_cb, false)
 				return "Group list created" --group_list(msg)
 			end
 		end
-		if matches[1] == 'list' and matches[2] == 'realms' then
-			if msg.to.type == 'chat' or msg.to.type == 'channel' then
+		if matches[1] == 'list' and matches[2] == 'realms' and is_sudo(msg) then
+			if msg.to.type == 'chat' or msg.to.type == 'channel' and is_sudo(msg) then
 				realms_list(msg)
 				send_document("chat#id"..msg.to.id, "./groups/lists/realms.txt", ok_cb, false)
 				send_document("channel#id"..msg.to.id, "./groups/lists/realms.txt", ok_cb, false)
@@ -1069,7 +1062,7 @@ return {
 	"^[#!/](rem) (%d+)$",
     "^[#!/](addadmin) (.*)$", -- sudoers only
     "^[#!/](removeadmin) (.*)$", -- sudoers only
-	"[#!/ ](support)$",
+	"[#!/](support)$",
 	"^[#!/](support) (.*)$",
     "^[#!/](-support) (.*)$",
     "^[#!/](list) (.*)$",
@@ -1080,3 +1073,5 @@ return {
   run = run
 }
 end
+-- bugs fixed by @ST_alireza_AR
+-- channel : @ST_channel_AR
